@@ -1,0 +1,58 @@
+{
+  "productName": "AURA",
+  "version": "0.1.0",
+  "identifier": "com.aura.assistant",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1420",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "AURA",
+        "width": 480,
+        "height": 820,
+        "minWidth": 400,
+        "minHeight": 600,
+        "maxWidth": 600,
+        "resizable": true,
+        "center": true,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": false,
+        "skipTaskbar": false,
+        "focus": true
+      }
+    ],
+    "trayIcon": {
+      "id": "aura-tray",
+      "iconPath": "icons/tray-icon.png",
+      "iconAsTemplate": false,
+      "menuOnLeftClick": false,
+      "title": "AURA",
+      "tooltip": "AURA — AI Personal Assistant"
+    },
+    "security": {
+      "csp": "default-src 'self'; connect-src 'self' http://127.0.0.1:8765 ws://127.0.0.1:8765; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: asset: https://asset.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": ""
+    },
+    "resources": []
+  }
+}

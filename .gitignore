@@ -1,0 +1,78 @@
+# AURA - .gitignore
+
+# Environment & secrets
+.env
+.env.local
+.env.production
+*.key
+*.pem
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+*.cover
+coverage.xml
+
+# Node / Frontend
+node_modules/
+dist/
+.pnp
+.pnp.js
+.turbo/
+
+# Tauri
+target/
+src-tauri/target/
+
+# Build outputs
+*.exe
+*.msi
+*.zip
+*.tar.gz
+
+# Logs
+logs/
+*.log
+aura_*.log
+
+# Data / Storage
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+# AURA local data
+backend/data/
+backend/logs/
+backend/memory/
+
+# Tauri generated
+desktop/src-tauri/target/
+desktop/src-tauri/WixTools/

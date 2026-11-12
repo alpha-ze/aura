@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Reset ─────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+  }
+
+  .selectable {
+    user-select: text;
+  }
+
+  body {
+    @apply bg-[#0f0f1a] text-white overflow-hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track  { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb  { @apply bg-white/10 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-white/20; }
+}
+
+/* ─── Tauri drag regions ─────────────────────────────────────────────────── */
+.drag-region { -webkit-app-region: drag; }
+.no-drag     { -webkit-app-region: no-drag; }
+
+/* ─── Glass morphism ─────────────────────────────────────────────────────── */
+@layer components {
+
+  .glass {
+    @apply backdrop-blur-xl border border-white/10 rounded-2xl;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  /* glass-hover: bg-white/8 on hover — use raw rgba instead of /8 in @apply */
+  .glass-hover {
+    @apply backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-200;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  .glass-hover:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-card {
+    @apply glass;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  /* AURA orb */
+  .aura-orb {
+    @apply w-20 h-20 rounded-full flex items-center justify-center relative cursor-pointer;
+    background: radial-gradient(circle at 40% 35%, #8097fc, #6272f8 40%, #4044d4);
+    box-shadow:
+      0 0 30px rgba(98, 114, 248, 0.5),
+      0 0 60px rgba(98, 114, 248, 0.25),
+      inset 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  .aura-orb.listening {
+    animation: glow 1s ease-in-out infinite;
+  }
+  .aura-orb.thinking {
+    animation: spin-slow 2s linear infinite;
+  }
+  .aura-orb.speaking {
+    animation: pulse 0.8s ease-in-out infinite;
+  }
+
+  /* Status badge */
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  /* Chat input — focus:bg-white/8 replaced with raw CSS */
+  .chat-input {
+    @apply w-full border border-white/10 rounded-2xl px-4 py-3
+           text-white placeholder-white/30 text-sm
+           focus:outline-none focus:border-aura-500/60
+           transition-all duration-200 resize-none;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  .chat-input:focus {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Risk badge colors */
+  .risk-low      { @apply bg-emerald-500/20 text-emerald-300 border border-emerald-500/30; }
+  .risk-medium   { @apply bg-amber-500/20   text-amber-300   border border-amber-500/30; }
+  .risk-high     { @apply bg-red-500/20     text-red-300     border border-red-500/30; }
+  .risk-critical { @apply bg-red-700/20     text-red-200     border border-red-700/30; }
+
+  /* Message bubbles */
+  .message-user {
+    @apply bg-aura-600/80 text-white rounded-3xl rounded-br-lg px-4 py-3 max-w-[85%] self-end text-sm;
+  }
+  .message-assistant {
+    @apply glass text-white/90 rounded-3xl rounded-bl-lg px-4 py-3 max-w-[90%] self-start text-sm leading-relaxed;
+  }
+}
+
+/* ─── Voice wave bars ────────────────────────────────────────────────────── */
+.voice-wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 24px;
+}
+.voice-wave span {
+  display: block;
+  width: 3px;
+  border-radius: 3px;
+  background: #6272f8;
+  animation: wave 1.2s ease-in-out infinite;
+}
+.voice-wave span:nth-child(2) { animation-delay: 0.1s; }
+.voice-wave span:nth-child(3) { animation-delay: 0.2s; }
+.voice-wave span:nth-child(4) { animation-delay: 0.3s; }
+.voice-wave span:nth-child(5) { animation-delay: 0.4s; }
+
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 30px rgba(98, 114, 248, 0.5); }
+  50%       { box-shadow: 0 0 60px rgba(98, 114, 248, 0.9), 0 0 100px rgba(98, 114, 248, 0.4); }
+}
+
+@keyframes wave {
+  0%, 100% { height: 8px; }
+  50%       { height: 20px; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in  { animation: fade-in 0.25s ease-out both; }
+.animate-slide-up { animation: slide-up 0.3s ease-out both; }
